@@ -1,3 +1,3 @@
 # -- Final Project --
-## Yael Yazdi && Sapir Yeuda
+## Yael Yazdi && Sapir Yehuda
 :)
