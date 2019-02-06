@@ -40,7 +40,7 @@ tic
 
 % load breast cancer data
 data_matrix=xlsread('file.xlsx');
-icol = size(data_matrix,2)
+icol=size(data_matrix,2)
 data_predictor = data_matrix(:,1:icol-1); % predictors matrix
 label = data_matrix(:,end); % last column is 2 for benign, 4 for malignant
 

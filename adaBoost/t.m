@@ -3,15 +3,23 @@
 %% from the site belowe
 
 tic
+clc; clear all
 [~, ~, ctg] = xlsread('file.xlsx');
-X = cell2mat(ctg(3:end, 4:end-2));
-y = cell2mat(ctg(3:end, end));
+X = cell2mat(ctg(2:end, 4:end-1));
+y = cell2mat(ctg(2:end, 22:end));
+
 colLabel = ctg(1, 4:end-2);
+%data(:,1:end-1)=zscore(ctg(:,1:end-1));
+
+%[train,test] = holdout(data,80);
+% Test set
+% Xtest=test(:,1:end-1);Ytest=test(:,end);
 
 verbose = true;
 classifier = AdaBoost_mult(decision_stump, verbose); % blank classifier
 nTree = 15;
 C = classifier.train(X, y, [], nTree);
+
 
 [accuracy, tpr] = C.calc_accuracy( X, y, nTree);
 hold on
