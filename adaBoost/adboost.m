@@ -1,13 +1,13 @@
 %% https://www.mathworks.com/matlabcentral/fileexchange/60263-adaboost?s_tid=FX_rc2_behav  
-%% from the site below - ?? save data
+% https://archive.ics.uci.edu/ml/machine-learning-databases/00252/pop_failures.dat
+%% from the site belowe
 
 tic
-%data=xlsread('file.xlsx');?
-
-ctg] = xlsread('file.xlsx');?
-X = cell2mat(ctg(3:end, 4:end-2));
-y = cell2mat(ctg(3:end, end));
-colLabel = ctg(1, 4:end-2);
+clc; clear all
+[~, ~, ctg] = xlsread('file.xlsx');
+X = cell2mat(ctg(2:end, 4:end-1));
+y = cell2mat(ctg(2:end, end));
+colLabel = ctg(1, 4:end-1);
 
 verbose = true;
 classifier = AdaBoost_mult(decision_stump, verbose); % blank classifier
