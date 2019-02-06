@@ -1,6 +1,7 @@
 %https://www.mathworks.com/matlabcentral/fileexchange/63158-support-vector-machine
 tic
-data=xlsread('file.xlsx');
+clc; clear all
+data=xlsread('file1.xlsx');
 disp(length(data))
 data(:,1:end-1)=zscore(data(:,1:end-1));
 [train,test] = holdout(data,80);
