@@ -1,31 +1,30 @@
 %https://www.mathworks.com/help/stats/classification-with-imbalanced-data.html
 tic
+clc; clear all
 data=xlsread('file.xlsx');
 Y = data(:,end);
-data(:,end) = [];
+X = data(:,1:end-1);
+
+%data(:,1:end-1) = [];
 tabulate(Y)
 
 rng(10,'twister')         % For reproducibility
-part = cvpartition(Y,'Holdout',0.5);
-istrain = training(part,1); % Data for fitting
-%istest = test(part);      % Data for quality assessment
+part = cvpartition(Y,'Holdout',0.20);
+istrain = training(part); % Data for fitting
+istest = test(part);      % Data for quality assessment
 tabulate(Y(istrain))
 
 N = sum(istrain);         % Number of observations in the training sample
 t = templateTree('MaxNumSplits',N);
-tic
-rusTree = fitcensemble(data(istrain,:),Y(istrain),'Method','RUSBoost', ...
+rusTree = fitcensemble(data(istrain,1:18),Y(istrain),'Method','RUSBoost', ...
     'NumLearningCycles',1000,'Learners',t,'LearnRate',0.1,'nprint',100);
-
 figure;
-tic
-plot(loss(rusTree,data(istrain,:),Y(istrain),'mode','cumulative'));
-toc
+plot(loss(rusTree,data(istest,1:18),Y(istest),'mode','cumulative'));
 grid on;
 xlabel('Number of trees');
 ylabel('Test classification error');
 
-Yfit = predict(rusTree,data(istrain,:));
+Yfit = predict(rusTree,data(istrain,1:18));
 tab = tabulate(Y(istrain));
 bsxfun(@rdivide,confusionmat(Y(istrain),Yfit),tab(:,2))*100
 
@@ -40,5 +39,5 @@ sz(1) = whos('rusTree');
 sz(2) = whos('cmpctRus');
 [sz(1).bytes sz(2).bytes]
 
-L = loss(cmpctRus,data(istrain,:),Y(istrain))
+L = loss(cmpctRus,data(istrain,1:18),Y(istrain))
 toc
