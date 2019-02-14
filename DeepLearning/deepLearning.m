@@ -26,7 +26,8 @@ ylabel('Test classification error');
 
 Yfit = predict(rusTree,data(istrain,1:18));
 tab = tabulate(Y(istrain));
-bsxfun(@rdivide,confusionmat(Y(istrain),Yfit),tab(:,2))*100
+mat = bsxfun(@rdivide,confusionmat(Y(istrain),Yfit),tab(:,2))*100
+
 
 cmpctRus = compact(rusTree);
 
@@ -39,5 +40,11 @@ sz(1) = whos('rusTree');
 sz(2) = whos('cmpctRus');
 [sz(1).bytes sz(2).bytes]
 
-L = loss(cmpctRus,data(istrain,1:18),Y(istrain))
+L=loss(cmpctRus,data(istrain,1:18),Y(istrain))
+
+%X = sprintf('accuracy: %f\n', mean(diag(cmpctRus)));
+%disp(X)?
+%X
+
+
 toc
