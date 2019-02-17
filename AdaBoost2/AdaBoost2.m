@@ -19,25 +19,21 @@ legend('Positive Class','Negative Class')
 title('Data for classification')
 hold off
 
-
 [x1 x2]=meshgrid(min(X(:,1)):0.01:max(X(:,1)),min(X(:,2)):0.01:max(X(:,2)));
 Xn=[reshape(x1,1,size(x1,2)*size(x1,1))' reshape(x2,1,size(x2,2)*size(x2,1))'];
-
 
 gda_in=fitcdiscr(X,Y);
 gda_out=predict(gda_in, Xtest);
 
-
 [Fmeasure(1),Accuracy(1)] = confusion_mat(Ytest, gda_out);
 Fmeasure_GDA=Fmeasure(1)
 
-
 Accuracy_GDA=Accuracy(1)
 
-%yn=predict(gda_in,Xn);
+yn=predict(gda_in,X);
 %Yn=reshape(yn,size(x1));
-%DecisionBoundry( X,Y,Yn )
-%title('Decision Boundry due to GDA')
+DecisionBoundry( X,Y,yn )
+title('Decision Boundry due to GDA')
 
 
 knn_in=fitcknn(X,Y,'NumNeighbors',5);
@@ -48,20 +44,20 @@ Fmeasure_knn=Fmeasure(2)
 
 Accuracy_knn=Accuracy(2)
 
-yn=predict(knn_in,Xn);
-Yn=reshape(yn,size(x1));
-DecisionBoundry( X,Y,Yn )
+yn=predict(knn_in,X);
+%Yn=reshape(yn,size(x1));
+DecisionBoundry( X,Y,yn )
 title('Decision Boundry due to knn')
 
 
-nb_in=fitcnb(X,Y);
-nb_out=predict(nb_in, Xtest);
-[Fmeasure(3),Accuracy(3)] = confusion_mat(Ytest, nb_out);
-Fmeasure_NB=Fmeasure(3)
-Accuracy_NB=Accuracy(3)
-yn=predict(nb_in,Xn);
-Yn=reshape(yn,size(x1));
-DecisionBoundry( X,Y,Yn)
-title('Decision Boundry due to Naive bayes')
+%nb_in=fitcnb(X,Y);
+%nb_out=predict(nb_in, Xtest);
+%[Fmeasure(3),Accuracy(3)] = confusion_mat(Ytest, nb_out);
+%Fmeasure_NB=Fmeasure(3)
+%Accuracy_NB=Accuracy(3)
+%yn=predict(nb_in,Xn);
+%Yn=reshape(yn,size(x1));
+%DecisionBoundry( X,Y,Yn)
+%title('Decision Boundry due to Naive bayes')
 
-
+toc
