@@ -1,0 +1,22 @@
+%https://www.mathworks.com/examples/statistics/community/36325-adaboost-demo
+tic
+clc; clear all
+data=xlsread('file.xlsx');
+disp(length(data))
+
+[trset,teset ] = holdout( data,70 );%????
+
+X=trset(:,1:end-1);Y=trset(:,end);%??
+Xtest=teset(:,1:end-1);Ytest=teset(:,end);%??
+figure
+hold on
+scatter(X(Y==1,1),X(Y==1,2),'+')
+scatter(X(Y==-1,1),X(Y==-1,2),'.')
+xlabel('{x_1}')
+ylabel('{x_2}')
+zlabel('{x_3}')
+legend('Positive Class','Negative Class')
+title('Data for classification')
+hold off
+
+
