@@ -50,6 +50,8 @@ DecisionBoundry( X,Y,yn )
 title('Decision Boundry due to knn')
 
 
+
+
 %nb_in=fitcnb(X,Y);
 %nb_out=predict(nb_in, Xtest);
 %[Fmeasure(3),Accuracy(3)] = confusion_mat(Ytest, nb_out);
@@ -59,5 +61,36 @@ title('Decision Boundry due to knn')
 %Yn=reshape(yn,size(x1));
 %DecisionBoundry( X,Y,Yn)
 %title('Decision Boundry due to Naive bayes')
+
+
+% Choose best in maxItr number of iterations
+maxItr=50;
+fm_=[];
+for itr=1:maxItr
+    [~,ada_test(:,itr)]= adaboost(X,Y, Xtest);
+    fm_=[fm_; confusion_mat(Ytest, ada_test(:,itr))];
+end
+[fm itr]=max(fm_);
+ada_out=ada_test(:,itr);
+
+[Fmeasure(6),Accuracy(6)] = confusion_mat(Ytest, ada_out);
+Fmeasure_AdaBoost=Fmeasure(6)
+Accuracy_AdaBoost=Accuracy(6)
+
+[~,yn]=adaboost(X,Y,X);
+
+%Yn=reshape(yn,size(x1));
+DecisionBoundry( X,Y,yn )
+title('Decision Boundry due to AdaBoost')
+
+figure
+hold on
+plot(Fmeasure,'-^')
+plot(Accuracy,'--o')
+text(6,0.5*(Fmeasure(6)+Accuracy(6)),'\leftarrow AdaBoost')
+axis square
+xlabel('Different classifiers')
+ylabel('F-measure, Accuracy \rightarrow')
+hold off
 
 toc
