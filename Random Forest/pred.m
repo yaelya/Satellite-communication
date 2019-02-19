@@ -3,20 +3,24 @@ function [perftrain,perfage,perfage2,ley]=mkpred
 tic
 clc; clear all
 data_matrix=xlsread('file1.xlsx');
-icol = size(data_matrix,2)
+icol = size(data_matrix,2);
 
 data_predictor = data_matrix(:,1:icol-1); % predictors matrix
 label = data_matrix(:,end); % last column is 2 for benign, 4 for malignant
 
 
-cvp=cvpartition(length(data_predictor),'holdout',0.8); 
+cvp=cvpartition(length(data_predictor),'holdout',0.2); 
 %Training set
-x=data_predictor(training(cvp),:);
-y=label(training(cvp),:);
+x=data_predictor(1:cvp.TrainSize,:);
+y=label(1:cvp.TrainSize,:);
+%x=data_predictor(training(cvp),:);
+%y=label(training(cvp),:);
 
 %Testing set
-lex=data_predictor(test(cvp),:);
-ley=label(test(cvp),:);
+lex=data_predictor(cvp.TrainSize+1:end,:);
+ley=label(cvp.TrainSize+1:end,:);
+%lex=data_predictor(test(cvp),:);
+%ley=label(test(cvp),:);
 
 
 %load datamat/data_test_1.mat

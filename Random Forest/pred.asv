@@ -1,11 +1,6 @@
-function [perftrain,perfage,perfage2]=pred
+function [perftrain,perfage,perfage2,ley]=mkpred
 
-%% set the random generator
-% doesn't work!
-%load initrand.mat
-%RandStream.setDefaultStream(STREAM); 
-%reset(STREAM, 1);
-
+tic
 clc; clear all
 data_matrix=xlsread('file1.xlsx');
 icol = size(data_matrix,2)
@@ -13,42 +8,27 @@ icol = size(data_matrix,2)
 data_predictor = data_matrix(:,1:icol-1); % predictors matrix
 label = data_matrix(:,end); % last column is 2 for benign, 4 for malignant
 
-% A=rand(2,3)
-% A always the same but the models are not
 
-%% compute prediction
-[perftrain,perfage,perfage2,ley]=mkpred;
+cvp=cvpartition(length(data_predictor),'holdout',0.2); 
+%Training set
+x=data_predictor(training(cvp),:);
+y=label(1:cvp.TrainSize,:);
+%y=label(training(cvp),:);
 
-%% write the csv file
-load datamat/data_test_1.mat
-[~,index]=sort(x(1,:));
-ley=ley(index);
+%Testing set
+lex=data_predictor(test(cvp),:);
 
-fid=fopen('prediction.csv','w');
-title='PassengerId,Survived';
-fprintf(fid,'%s\n',title);
-for i=1:size(ley,1);
-    if ley(i)
-        text=[int2str(x(1,index(i))) ',1'];
-    else
-        text=[int2str(x(1,index(i))) ',0'];
-    end
-    fprintf(fid,'%s\n', text);
-end
-fclose(fid);
+%ley=label(test(cvp),:);
 
-end
 
-function [perftrain,perfage,perfage2,ley]=mkpred
+%load datamat/data_test_1.mat
+%lex=x';
+%ley=zeros(size(lex,1),1);
 
-load datamat/data_test_1.mat
-lex=x';
-ley=zeros(size(lex,1),1);
-
-load datamat/data_train_1.mat
-list=randperm(size(x,2));
-x=x(:,list)'; 
-y=y(list)';
+%load datamat/data_train_1.mat
+%list=randperm(size(x,2));
+%x=x(:,list)'; 
+%y=y(list)';
 
 [lex, x, perfage,perfage2]=cleanage(lex,x);
 
@@ -64,6 +44,7 @@ for i=1:k
     ley = ley + classRF_predict(lex,model);
     Y_hat = classRF_predict(X_tst,model);
     perftrain(i)=length(find(Y_hat==Y_tst))/length(Y_tst);
+    toc
 end
 
 ley=round(ley/k);
@@ -112,3 +93,4 @@ lex(isnan(lex(:,4)),4)=letarget_y;
 x=x(:,2:8); lex=lex(:,2:8);
 
 end
+
