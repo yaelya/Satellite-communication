@@ -1,4 +1,5 @@
-%% https://www.mathworks.com/matlabcentral/fileexchange/60263-adaboost?s_tid=FX_rc2_behav  
+%% 
+
 % https://archive.ics.uci.edu/ml/machine-learning-databases/00252/pop_failures.dat
 %% from the site belowe
 
@@ -40,7 +41,7 @@ ax.YTickLabel = colLabel(hx);
 
 [strList, labels, header] = C.export_model();
 CC = classifier.import_model(strList, labels); % initialize new model
-Y  = C .predict(X);
+Y  = C.predict(X);
 YY = CC.predict(X);
 fprintf('Number of mismatches between models: %i\n', nnz(Y~=YY));
 
