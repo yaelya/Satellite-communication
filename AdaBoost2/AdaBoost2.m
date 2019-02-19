@@ -4,10 +4,13 @@ clc; clear all
 data=xlsread('file.xlsx');
 disp(length(data))
 
-[trset,teset ] = holdout(data,80);
-
-X=trset(:,1:end-1);Y=trset(:,end);
-Xtest=teset(:,1:end-1);Ytest=teset(:,end);
+[train,teset ] = holdout(data,80);
+[r_train c_train]=size(train);
+[r_teset c_teset]=size(teset);
+X = data(1:r_train,1:c_train-1);Y = data(1:r_train,c_train);
+Xtest = data(r_train+1:end,1:c_train-1); Ytest = data(r_train+1:end,c_train);
+% X=train(:,1:end-1);Y=train(:,end);
+% Xtest=teset(:,1:end-1);Ytest=teset(:,end);
 figure
 hold on
 scatter(X(Y==1,1),X(Y==1,2),'+')
@@ -30,10 +33,11 @@ Fmeasure_GDA=Fmeasure(1)
 
 Accuracy_GDA=Accuracy(1)
 
+
 yn=predict(gda_in,X);
 %Yn=reshape(yn,size(x1));
-DecisionBoundry( X,Y,yn )
-title('Decision Boundry due to GDA')
+%DecisionBoundry( X,Y,yn )
+%title('Decision Boundry due to GDA')
 
 
 knn_in=fitcknn(X,Y,'NumNeighbors',5);
@@ -46,8 +50,8 @@ Accuracy_knn=Accuracy(2)
 
 yn=predict(knn_in,X);
 %Yn=reshape(yn,size(x1));
-DecisionBoundry( X,Y,yn )
-title('Decision Boundry due to knn')
+%DecisionBoundry( X,Y,yn )
+%title('Decision Boundry due to knn')
 
 
 
@@ -64,7 +68,7 @@ title('Decision Boundry due to knn')
 
 
 % Choose best in maxItr number of iterations
-maxItr=50;
+maxItr=8;
 fm_=[];
 for itr=1:maxItr
     [~,ada_test(:,itr)]= adaboost(X,Y, Xtest);
