@@ -2,7 +2,7 @@
 tic
 clc; clear all
 data=xlsread('file1.xlsx');
-disp(length(data))
+disp(length(data));
 data(:,1:end-1)=zscore(data(:,1:end-1));
 [train,test] = holdout(data,80);
 % Test set
@@ -43,19 +43,19 @@ for c=[0.1,1,2,5,7,10]
 end
 
 [max_fm, indx]=max(fm_(:,2));
-c_optimal=fm_(indx,1)
+c_optimal=fm_(indx,1);
 
 alpha = grad_ascent(X,Y,c_optimal);
 Xs=X(alpha>0,:); Ys=Y(alpha>0);
-Support_vectors=size(Xs,1)
-W=(alpha(alpha>0).*Ys)'*Xs
-bias=mean(Ys-(Xs*W'))    
+Support_vectors=size(Xs,1);
+W=(alpha(alpha>0).*Ys)'*Xs;
+bias=mean(Ys-(Xs*W'));    
 f=sign(Xtest*W'+bias);
-[F_measure, Accuracy] = confusion_mat(Ytest,f)
+[F_measure, Accuracy] = confusion_mat(Ytest,f);
 ft=X*W'+bias;
 zeta=max(0,1-Y.*ft);
-Non_Zero_Zeta=sum(zeta~=0)
-Support_vectors
+Non_Zero_Zeta=sum(zeta~=0);
+Support_vectors;
 figure
 hold on
 scatter(X(Y==1,1),X(Y==1,2),'b')
