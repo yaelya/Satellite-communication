@@ -8,7 +8,7 @@ The prediction of the weather and the decay of a communication channel between t
 ### Project Documents:
 
 - [Inception](https://github.com/yaelya/Satellite-communication/wiki/Inception)
--[main chart](https://github.com/yaelya/Satellite-communication/wiki/main-chart)
+- [main chart](https://github.com/yaelya/Satellite-communication/wiki/main-chart)
 - [Market Survey](https://github.com/yaelya/Satellite-communication/wiki/Market-Survey)
 - [Alpha Report](https://github.com/yaelya/Satellite-communication/blob/master/Alpha%20stage/SatelliteCommunication_YaelYazdi%20%26%20SapirYehuda.docx)
 - [Alpha Presentaion](https://github.com/yaelya/Satellite-communication/blob/master/Alpha%20stage/%D7%9E%D7%A6%D7%92%D7%AA%20%D7%A9%D7%9C%D7%91%20%D7%90%D7%9C%D7%A4%D7%90.pptx)
