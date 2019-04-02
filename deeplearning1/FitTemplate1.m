@@ -326,7 +326,7 @@ classdef FitTemplate1 < classreg.learning.internal.DisallowVectorOps
             elseif strcmp(this.Type,'classification')
                 this.NDataPrepOut = 4; % W,dataSummary,classSummary,scoreTransform
                 if     strcmp(this.Method,'Tree')
-                    this.PrepareData = @ClassificationTree.prepareData;
+                    this.PrepareData = @ClassificationTree1.prepareData;
                 elseif strcmp(this.Method,'SVM')
                     this.PrepareData = @ClassificationSVM.prepareData;
                 elseif strcmp(this.Method,'KNN')
