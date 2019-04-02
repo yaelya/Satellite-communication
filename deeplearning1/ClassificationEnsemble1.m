@@ -73,7 +73,7 @@ classdef ClassificationEnsemble1 < ...
                 dataSummary,classSummary,scoreTransform,[],[],[],[],[]);
             this.DefaultScore = this.ModelParams.DefaultScore;
             nlearn = this.ModelParams.NLearn/numel(this.ModelParams.LearnerTemplates);
-            this = fitEnsemble(this,nlearn);
+            this = fitEnsemble1(this,nlearn);
             if isa(this.ModelParams.Generator,'classreg.learning.generator.SubspaceSampler')
                 this.UsePredForLearner = this.ModelParams.Generator.UsePredForIter;
             end
@@ -222,7 +222,7 @@ classdef ClassificationEnsemble1 < ...
                 classreg.learning.ensemble.Ensemble.checkNPrint(varargin{:});
             this.ModelParams.NLearn = this.ModelParams.NLearn + ...
                 nlearn*numel(this.ModelParams.LearnerTemplates);
-            this = fitEnsemble(this,nlearn);
+            this = fitEnsemble1(this,nlearn);
             if isa(this.ModelParams.Generator,'classreg.learning.generator.SubspaceSampler')
                 this.UsePredForLearner = this.ModelParams.Generator.UsePredForIter;
             end
@@ -353,7 +353,7 @@ classdef ClassificationEnsemble1 < ...
             s = propsForDisp@classreg.learning.ensemble.Ensemble(this,s);
         end
         
-        function this = fitEnsemble(this,nlearn)
+        function this = fitEnsemble1(this,nlearn)
             % Fit
             [this,trained,generator,modifier,combiner] = ...
                 fitWeakLearners(this,nlearn,this.ModelParams.NPrint);            

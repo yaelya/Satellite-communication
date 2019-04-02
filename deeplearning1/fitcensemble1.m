@@ -186,24 +186,24 @@ else
     if isBoostingMethod(Method)
         Learners = setTreeDefaultsIfAny(Learners);
     end
-    obj = fitensemble(X, Y, Method, NumLearningCycles, Learners, ...
+    obj = fitensemble1(X, Y, Method, NumLearningCycles, Learners, ...
         RemainingArgs{:}, 'Type', 'classification');
 end
 end
 
 function checkMethod(Method)
 if ~ischar(Method)
-    error(message('stats:fitensemble:MethodNameNotChar'));
+    error(message('stats:fitensemble1:MethodNameNotChar'));
 end
 if ~any(strncmpi(Method,classreg.learning.ensembleModels(),length(Method)))
-    error(message('stats:fitensemble:BadMethod', Method));
+    error(message('stats:fitensemble1:BadMethod', Method));
 end
 end
 
 function checkLearners(Learners)
 if ~(ischar(Learners) || isa(Learners, 'classreg.learning.FitTemplate1') || ...
         iscell(Learners) && all(cellfun(@(Tmp)isa(Tmp, 'classreg.learning.FitTemplate1'), Learners)))
-    error(message('stats:fitensemble:BadLearners'));
+    error(message('stats:fitensemble1:BadLearners'));
 end
 end
 

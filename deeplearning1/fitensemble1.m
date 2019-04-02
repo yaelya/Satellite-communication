@@ -1,4 +1,4 @@
-function obj = fitensemble(X,Y,method,nlearn,learners,varargin)
+function obj = fitensemble1(X,Y,method,nlearn,learners,varargin)
 %FITENSEMBLE Fit an ensemble of learners.
 %   ENS=FITENSEMBLE(TBL,Y,METHOD,NLEARN,LEARNERS) fits an ensemble model
 %   ENS, which can be used for making predictions on new data. This
