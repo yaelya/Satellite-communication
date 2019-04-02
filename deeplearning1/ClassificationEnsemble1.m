@@ -77,7 +77,7 @@ classdef ClassificationEnsemble1 < ...
             if isa(this.ModelParams.Generator,'classreg.learning.generator.SubspaceSampler')
                 this.UsePredForLearner = this.ModelParams.Generator.UsePredForIter;
             end
-            %666666666666666666666666666
+            % =================================== try to chenge the weight
             this.DefaultScoreType = 'unknown';
             switch this.Method
                 case {'AdaBoostM1' 'AdaBoostM2' 'AdaBoostMH' 'RobustBoost' ...
