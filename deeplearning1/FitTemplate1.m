@@ -251,7 +251,7 @@ classdef FitTemplate1 < classreg.learning.internal.DisallowVectorOps
             end
                         
             % Get weights and the rest of the arguments.
-            W = dataPrepOut{1};
+            W = dataPrepOut{1}; % -------------- 1 לבדוק מה קורה כאן אם משנים
             fitArgs = dataPrepOut(2:end);
 
             % Fit
