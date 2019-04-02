@@ -9,7 +9,7 @@ function checkNotTall1(fcn, ~, varargin)
 
 % Copyright 2016-2017 The MathWorks, Inc.
 
-firstTallArg = find(cellfun(@istall, varargin), 1, 'first');
+firstTallArg = find(cellfun(@istall1, varargin), 1, 'first');
 if ~isempty(firstTallArg)
     msg = message('MATLAB:bigdata:array:FcnNotSupported', fcn);
     throwAsCaller(MException(msg.Identifier, '%s', getString(msg)));
