@@ -136,7 +136,7 @@ classdef ClassificationEnsemble1 < ...
             defs = {      ''};
             [method,~,extraArgs] = ...
                 internal.stats.parseArgs(args,defs,varargin{:});
-            temp = classreg.learning.FitTemplate.make(method,'type','classification',extraArgs{:});
+            temp = classreg.learning.FitTemplate1.make(method,'type','classification',extraArgs{:});
             this = fit(temp,X,Y);
         end
     end

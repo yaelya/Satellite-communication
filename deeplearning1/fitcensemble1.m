@@ -201,8 +201,8 @@ end
 end
 
 function checkLearners(Learners)
-if ~(ischar(Learners) || isa(Learners, 'classreg.learning.FitTemplate') || ...
-        iscell(Learners) && all(cellfun(@(Tmp)isa(Tmp, 'classreg.learning.FitTemplate'), Learners)))
+if ~(ischar(Learners) || isa(Learners, 'classreg.learning.FitTemplate1') || ...
+        iscell(Learners) && all(cellfun(@(Tmp)isa(Tmp, 'classreg.learning.FitTemplate1'), Learners)))
     error(message('stats:fitensemble:BadLearners'));
 end
 end
@@ -236,7 +236,7 @@ if isempty(Learners)
     tf = false;
 elseif ischar(Learners)
     tf = ismember(lower(Learners), Types);
-elseif isa(Learners, 'classreg.learning.FitTemplate')
+elseif isa(Learners, 'classreg.learning.FitTemplate1')
     tf = ismember(lower(Learners.Method), Types);
 elseif iscell(Learners)
     tf = all(cellfun(@(Template)ismember(lower(Template.Method), Types), ...
@@ -252,7 +252,7 @@ if isempty(Learners)
     tf = false;
 elseif ischar(Learners)
     tf = all(ismember(RequiredTypes, lower(Learners)));
-elseif isa(Learners, 'classreg.learning.FitTemplate')
+elseif isa(Learners, 'classreg.learning.FitTemplate1')
     tf = all(ismember(RequiredTypes, lower(Learners.Method)));
 elseif iscell(Learners)
     tf = all(ismember(RequiredTypes, cellfun(@(Template)lower(Template.Method), Learners, 'UniformOutput', false)));
@@ -283,9 +283,9 @@ function Learners = setTreeDefaultsIfAny(Learners)
 % For any learners that are trees, make MaxNumSplits default to 10. 
 if ischar(Learners) && isequal(lower(Learners), 'tree')
     Learners = templateTree('MaxNumSplits', 10);
-elseif isa(Learners, 'classreg.learning.FitTemplate') 
+elseif isa(Learners, 'classreg.learning.FitTemplate1') 
     Learners = defaultMaxNumSplitsIfTemplateTree(Learners, 10);
-elseif iscell(Learners) && all(cellfun(@(Tmp)isa(Tmp, 'classreg.learning.FitTemplate'), Learners))
+elseif iscell(Learners) && all(cellfun(@(Tmp)isa(Tmp, 'classreg.learning.FitTemplate1'), Learners))
     Learners = cellfun(@(Tmp)defaultMaxNumSplitsIfTemplateTree(Tmp, 10), ...
                        Learners, 'UniformOutput', false);
 end

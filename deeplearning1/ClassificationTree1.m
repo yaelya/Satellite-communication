@@ -107,8 +107,8 @@ classdef ClassificationTree1 < ...
         end
         
         function temp = template(varargin)
-            classreg.learning.FitTemplate.catchType(varargin{:});
-            temp = classreg.learning.FitTemplate.make('Tree','type','classification',varargin{:});
+            classreg.learning.FitTemplate1.catchType(varargin{:});
+            temp = classreg.learning.FitTemplate1.make('Tree','type','classification',varargin{:});
         end
     end
 
