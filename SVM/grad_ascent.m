@@ -18,7 +18,7 @@ while norm1>tol
         % Adatron
         eta=1/Ker(i,i);
         
-        for j=1:N
+        for j=1:N/2
             alp2(j,1)=alpha(j,1)*Y(j,1)*Ker(i,j);
         end
         
@@ -35,5 +35,5 @@ while norm1>tol
     w2=(alpha.*Y).*X;
     norm1=norm(w2-w1);
 end
-total_iterations
+total_iterations;
 end
