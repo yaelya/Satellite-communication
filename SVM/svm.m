@@ -1,7 +1,7 @@
 %https://www.mathworks.com/matlabcentral/fileexchange/63158-support-vector-machine
 tic
 clc; clear all
-data=xlsread('file1.xlsx');
+data=xlsread('dataset 4.5.xlsx');
 
 disp(length(data));
 data(:,1:end-1)=zscore(data(:,1:end-1));
