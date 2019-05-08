@@ -1,3 +1,4 @@
+
 classdef ClassificationEnsemble1 < ...
         classreg.learning.classif.FullClassificationModel & classreg.learning.ensemble.Ensemble ...
         & classreg.learning.classif.CompactClassificationEnsemble
@@ -246,7 +247,7 @@ classdef ClassificationEnsemble1 < ...
         %   See also ClassificationEnsemble, predict.
             
             [varargin{:}] = convertStringsToChars(varargin{:});
-            classreg.learning.ensemble.Ensemble.catchUOFL(varargin{:});
+            classreg.learning.ensemble.Ensemble1.catchUOFL(varargin{:});
             [labels,scores] = ...
                 resubPredict@classreg.learning.classif.FullClassificationModel(this,varargin{:});
         end
@@ -269,7 +270,7 @@ classdef ClassificationEnsemble1 < ...
         %   See also ClassificationEnsemble, margin.
             
             [varargin{:}] = convertStringsToChars(varargin{:});
-            classreg.learning.ensemble.Ensemble.catchUOFL(varargin{:});
+            classreg.learning.ensemble.Ensemble1.catchUOFL(varargin{:});
             m = resubMargin@classreg.learning.classif.FullClassificationModel(this,varargin{:});
         end
         
@@ -297,7 +298,7 @@ classdef ClassificationEnsemble1 < ...
         %   See also ClassificationEnsemble, resubMargin, edge.
             
             [varargin{:}] = convertStringsToChars(varargin{:});
-            classreg.learning.ensemble.Ensemble.catchUOFL(varargin{:});
+            classreg.learning.ensemble.Ensemble1.catchUOFL(varargin{:});
             e = resubEdge@classreg.learning.classif.FullClassificationModel(this,varargin{:});
         end
         
@@ -342,7 +343,7 @@ classdef ClassificationEnsemble1 < ...
         %   See also ClassificationEnsemble, loss.
             
             [varargin{:}] = convertStringsToChars(varargin{:});
-            classreg.learning.ensemble.Ensemble.catchUOFL(varargin{:});
+            classreg.learning.ensemble.Ensemble1.catchUOFL(varargin{:});
             l = resubLoss@classreg.learning.classif.FullClassificationModel(this,varargin{:});
         end             
     end
@@ -350,7 +351,7 @@ classdef ClassificationEnsemble1 < ...
     methods(Access=protected)                
         function s = propsForDisp(this,s)
             s = propsForDisp@classreg.learning.classif.FullClassificationModel(this,s);
-            s = propsForDisp@classreg.learning.ensemble.Ensemble(this,s);
+            s = propsForDisp@classreg.learning.ensemble.Ensemble1(this,s);
         end
         
         function this = fitEnsemble1(this,nlearn)

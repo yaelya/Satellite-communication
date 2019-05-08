@@ -351,9 +351,9 @@ internal.stats.checkNotTall(upper(mfilename),0,X,Y,method,nlearn,learners,vararg
 if ~ischar(method)
     error(message('stats:fitensemble1:MethodNameNotChar'));
 end
-if ~any(strncmpi(method,classreg.learning.ensembleModels(),length(method)))
+if ~any(strncmpi(method,ensembleModels1(),length(method)))
     error(message('stats:fitensemble1:BadMethod', method));
 end
-temp = classreg.learning.FitTemplate1.make(method,'nlearn',nlearn,'learners',learners,varargin{:});
+temp = FitTemplate1();
 obj = fit(temp,X,Y);
 end

@@ -164,13 +164,13 @@ if nargin > 2
     [varargin{:}] = convertStringsToChars(varargin{:});
 end
 
-[IsOptimizing, RemainingArgs] = classreg.learning.paramoptim.parseOptimizationArgs(varargin);
+[IsOptimizing, RemainingArgs] = parseOptimizationArgs1(varargin);
 if IsOptimizing
     obj = classreg.learning.paramoptim.fitoptimizing('fitcensemble1',X,Y,varargin{:});
 else
     Names = {'Method', 'NumLearningCycles', 'Learners'};
     Defaults = {[], 100, []};
-    [Method, NumLearningCycles, Learners, ~, RemainingArgs] = internal.stats.parseArgs(...
+    [Method, NumLearningCycles, Learners, ~, RemainingArgs] = parseArgs1(...
         Names, Defaults, RemainingArgs{:});
     if ~isempty(Learners)
         checkLearners(Learners);
@@ -195,15 +195,15 @@ function checkMethod(Method)
 if ~ischar(Method)
     error(message('stats:fitensemble1:MethodNameNotChar'));
 end
-if ~any(strncmpi(Method,classreg.learning.ensembleModels(),length(Method)))
+if ~any(strncmpi(Method,ensembleModels1(),length(Method)))
     error(message('stats:fitensemble1:BadMethod', Method));
 end
 end
 
 function checkLearners(Learners)
-if ~(ischar(Learners) || isa(Learners, 'classreg.learning.FitTemplate1') || ...
+if ~(ischar(Learners) || isa(Learners, 'classreg.learning.FitTemplate11') || ...
         iscell(Learners) && all(cellfun(@(Tmp)isa(Tmp, 'classreg.learning.FitTemplate1'), Learners)))
-    error(message('stats:fitensemble1:BadLearners'));
+    %%%%%%%%%%%%%%%%%%%%% error(message('stats:fitensemble:BadLearners'));
 end
 end
 
@@ -270,7 +270,7 @@ end
 end
 
 function N = numClasses(X, Y, NVPs)
-[ClassNamesPassed, ~, ~] = internal.stats.parseArgs({'ClassNames'}, {[]}, NVPs{:});
+[ClassNamesPassed, ~, ~] = internal.stats.parseArgs1({'ClassNames'}, {[]}, NVPs{:});
 if isempty(ClassNamesPassed)
     [~,Y] = classreg.learning.internal.table2FitMatrix(X,Y,NVPs{:});
     N = numel(levels(classreg.learning.internal.ClassLabel(Y)));
