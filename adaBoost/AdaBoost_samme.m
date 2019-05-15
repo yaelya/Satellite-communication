@@ -101,10 +101,10 @@ classdef AdaBoost_samme
           end
           [~, Y1] = max(prob, [],2); % predicted label
           match1 = (Y1==y); % true labeled samples
-          accuracy(iIter,1) = nnz(match1)/nSample;
-          fprintf('%3i) %s: weight(%3i)=%5.3f; stump accuracy(%3i)=%6.1f%%; overall accuracy=%6.1f%% %i misclassified\n', ...
-            iIter, obj.model{iIter,1}.print(), iIter, alpha, ...
-            iIter, 100*nnz(~mismatch)/nSample, 100*accuracy(iIter,1), nSample-nnz(match1));
+%           accuracy(iIter,1) = nnz(match1)/nSample;
+%           fprintf('%3i) %s: weight(%3i)=%5.3f; stump accuracy(%3i)=%6.1f%%; overall accuracy=%6.1f%% %i misclassified\n', ...
+%             iIter, obj.model{iIter,1}.print(), iIter, alpha, ...
+%             iIter, 100*nnz(~mismatch)/nSample, 100*accuracy(iIter,1), nSample-nnz(match1));
         end
        end
     end % end train

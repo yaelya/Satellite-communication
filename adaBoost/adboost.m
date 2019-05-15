@@ -42,13 +42,13 @@ CC = classifier.import_model(strList, labels); % initialize new model
 Y  = C.predict(X);
 YY = CC.predict(X);
 % fprintf('Number of mismatches between models: %i\n', nnz(Y~=YY));
-
+ 
 save_adaboost_model(C, 'classifier.csv');
 CC = load_adaboost_model(classifier, 'classifier.csv');
 Y  = C .predict(X);
 YY = CC.predict(X);
-% fprintf('Number of mismatches between models: %i\n', nnz(Y~=YY));
-type('classifier.csv');
+% % fprintf('Number of mismatches between models: %i\n', nnz(Y~=YY));
+% type('classifier.csv');
 
 % fprintf('Classification is %i%% accurate when training and testing on the same data.\n', ...
 %  round(100*mean(y==Y)));
