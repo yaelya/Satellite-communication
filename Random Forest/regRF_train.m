@@ -161,7 +161,7 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
     mtry = max(1, min(D,round(mtry)));
     
     if DEFAULTS_ON
-        fprintf('\tSetting to defaults %d trees and mtry=%d\n',ntree,mtry);
+        %fprintf('\tSetting to defaults %d trees and mtry=%d\n',ntree,mtry);
     end
     
     if length(Y)~=N || length(Y)==0
