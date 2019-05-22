@@ -13,14 +13,12 @@ load carbig
 Cylinders = categorical(Cylinders);
 Model_Year = categorical(Model_Year);
 Origin = categorical(cellstr(Origin));
-% X = table(Cylinders,Displacement,Horsepower,Weight,Acceleration,Model_Year,Origin);
+%X = table(Cylinders,Displacement,Horsepower,Weight,Acceleration,Model_Year,Origin);
 
 X = table(AtmosLossdB,RainLossdB,CloudsFogLossdB,FreqDopplerShiftkHz);
-str = ["AtmosLossdB","RainLossdB","CloudsFogLossdB","FreqDopplerShiftkHz"];
-countLevels = categories(categorical(str));
-C=categorical(str)%%%%%%%%%      ????????????
-func=@(x)numel(str)%%%%%%%%%     ????????????
-numLevels = varfun(func,X,'OutputFormat','uniform');
+str = ["AtmosLossdB","RainLossdB","CloudsFogLossdB","FreqDopplerShiftkHz"]
+countLevels = (categories(categorical(str)));
+numLevels = varfun(countLevels,X,'OutputFormat','uniform');
  
 % figure
 % bar(numLevels)
