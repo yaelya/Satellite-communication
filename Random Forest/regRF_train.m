@@ -90,8 +90,7 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
     %ntree (optional): number of trees (default is 500)
     %mtry (default is max(floor(D/3),1) D=number of features in X)
     DEBUG_ON=0;
-    
-    
+   
     DEFAULTS_ON=0;
     
     TRUE=1;
@@ -162,7 +161,7 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
     mtry = max(1, min(D,round(mtry)));
     
     if DEFAULTS_ON
-        fprintf('\tSetting to defaults %d trees and mtry=%d\n',ntree,mtry);
+        %fprintf('\tSetting to defaults %d trees and mtry=%d\n',ntree,mtry);
     end
     
     if length(Y)~=N || length(Y)==0
@@ -281,7 +280,7 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
     
     
 	[ldau,rdau,nodestatus,nrnodes,upper,avnode,...
-        mbest,ndtree,ypred,mse,impout,impmat,...
+         dsmbest,ndtree,ypred,mse,impout,impmat,...
         impSD,prox,coef,oob_times,inbag]...
         = mexRF_train (X',Y,ntree,mtry,sampsize,nodesize,...
                        int32(Options),int32(ncat),int32(maxcat),int32(do_trace), int32(proximity), int32(oob_prox), ...
