@@ -1,7 +1,7 @@
 %https://www.mathworks.com/help/stats/classification-with-imbalanced-data.html
 tic
 %clc; clear all
-data=xlsread('34_35.xlsx');
+data=xlsread('34_35_1.xlsx');
 Y = data(:,end);
 X = data(:,1:end-1);
 

@@ -1,7 +1,7 @@
 %https://www.mathworks.com/matlabcentral/fileexchange/63158-support-vector-machine
 tic
 clc; clear all
-data=xlsread('34_35.xlsx');
+data=xlsread('file1.xlsx');
 
 %disp(length(data));
 data(:,1:end-1)=zscore(data(:,1:end-1));
@@ -52,7 +52,7 @@ Support_vectors=size(Xs,1);
 W=(alpha(alpha>0).*Ys)'*Xs;
 bias=mean(Ys-(Xs*W'));    
 f=sign(Xtest*W'+bias);
-[F_measure, Accuracy] = confusion_mat(Ytest,f);
+[F_measure, Accuracy] = confusion_mat(Ytest,f)
 ft=X*W'+bias;
 zeta=max(0,1-Y.*ft);
 Non_Zero_Zeta=sum(zeta~=0);

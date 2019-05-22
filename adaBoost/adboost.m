@@ -3,7 +3,7 @@
 
 tic
 clc; clear all
-[~, ~, ctg] = xlsread('dataset 4.5.xlsx');
+[~, ~, ctg] = xlsread('file1.xlsx');
 X = cell2mat(ctg(2:end, 4:end-1));
 y = cell2mat(ctg(2:end, end));
 colLabel = ctg(1, 4:end-1);
@@ -21,6 +21,7 @@ C = classifier.train(X, y, [], nTree);
 % xlabel('Number of iterations')
 % legend({'true positive rate of normal patients', 'true positive rate of suspect patients', ...
 %   'true positive rate of Pathologic patients', 'overall accuracy'},'Location','southeast')
+accuracy
 
 [hx, hy] = C.feature_hist();
 hy = 100*hy/sum(hy);  % normalize and convert to percent
