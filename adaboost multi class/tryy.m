@@ -1,7 +1,4 @@
-%https://www.mathworks.com/matlabcentral/fileexchange/22997-multiclass-gentleadaboosting
-[~, ~, ctg] = xlsread('34_35.xlsx');
-X = cell2mat(ctg(2:end, 4:end-1));
-y = cell2mat(ctg(2:end, end));
+load wine
 
 options.method       = 7;
 options.holding.rho  = 0.7;
@@ -37,12 +34,12 @@ for t = 1:NT
 
         [Xtrain , ytrain , Xtest , ytest]  = samplingset(X , y , Itrain , Itest , i);
 
-        model_gentle = gentleboost_model(Xtrain , ytrain , options);
-        [ytrain_est , fxtrain]= gentleboost_predict(Xtrain , model_gentle);
-        error_train(t,i)= sum(ytrain_est~=ytrain)/Ntrain;
+        model_gentle                       = gentleboost_model(Xtrain , ytrain , options);
+        [ytrain_est , fxtrain]             = gentleboost_predict(Xtrain , model_gentle);
+        error_train(t,i)                   = sum(ytrain_est~=ytrain)/Ntrain;
 
-        [ytest_est , fxtest]= gentleboost_predict(Xtest , model_gentle);
-        error_test(t,i)= sum(ytest_est~=ytest)/Ntest;
+        [ytest_est , fxtest]               = gentleboost_predict(Xtest , model_gentle);
+        error_test(t,i)                    = sum(ytest_est~=ytest)/Ntest;
 
     end
 end

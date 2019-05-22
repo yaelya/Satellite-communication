@@ -3,10 +3,11 @@
 
 tic
 clc; clear all
-[~, ~, ctg] = xlsread('file1.xlsx');
-X = cell2mat(ctg(2:end, 4:end-1));
+
+[~, ~, ctg] = xlsread('34_35_1.xlsx');
+X = cell2mat(ctg(2:end, 1:end-1));
 y = cell2mat(ctg(2:end, end));
-colLabel = ctg(1, 4:end-1);
+colLabel = ctg(1, 1:end-1);
 
 verbose = true;
 classifier = AdaBoost_mult(decision_stump, verbose); % blank classifier
@@ -15,14 +16,15 @@ C = classifier.train(X, y, [], nTree);
 
 
 [accuracy, tpr] = C.calc_accuracy( X, y, nTree);
-% hold on
-% plot(tpr)
-% plot(accuracy, 'LineWidth',2)
-% xlabel('Number of iterations')
-% legend({'true positive rate of normal patients', 'true positive rate of suspect patients', ...
-%   'true positive rate of Pathologic patients', 'overall accuracy'},'Location','southeast')
-accuracy
 
+
+hold on
+plot(tpr)
+plot(accuracy, 'LineWidth',2)
+xlabel('Number of iterations')
+legend({'true positive rate of normal patients', 'true positive rate of suspect patients', ...
+  'true positive rate of Pathologic patients', 'overall accuracy'},'Location','southeast')
+accuracy
 [hx, hy] = C.feature_hist();
 hy = 100*hy/sum(hy);  % normalize and convert to percent
 hx(hy==0) = [];       % delete unused features
@@ -89,14 +91,14 @@ nFold = 10; % ten-fold validation
 % C = classifier.train(X, y, [], nTree);
 % AdaBoost_demo_plot(C, X, y);
 
-% nSamp = 1000;
-% Xa = (1:nSamp)*10/nSamp;
-% d = 4;
-% X = [randn(nSamp,2)+[Xa',Xa']; randn(nSamp,2)+[Xa',Xa'+d]-1; randn(nSamp,2)+[Xa',Xa'-d]+1]-5;
-% y = [1+zeros(nSamp,1); 2+zeros(nSamp,1); 3+zeros(nSamp,1)];
-% nTree = 30;   % number of trees
-% C = classifier.train(X, y, [], nTree);
-% AdaBoost_demo_plot(C, X, y);
+nSamp = 1000;
+Xa = (1:nSamp)*10/nSamp;
+d = 4;
+X = [randn(nSamp,2)+[Xa',Xa']; randn(nSamp,2)+[Xa',Xa'+d]-1; randn(nSamp,2)+[Xa',Xa'-d]+1]-5;
+y = [1+zeros(nSamp,1); 2+zeros(nSamp,1); 3+zeros(nSamp,1)];
+nTree = 30;   % number of trees
+C = classifier.train(X, y, [], nTree);
+AdaBoost_demo_plot(C, X, y);
 
 
 toc
