@@ -1,5 +1,4 @@
 %https://www.mathworks.com/help/deeplearning/ref/trainnetwork.html
-
 tic
 clc; clear all
 data=xlsread('34_35_1.xlsx');

@@ -2,7 +2,7 @@ function [perftrain,perfage,perfage2,ley]=mkpred
 
 tic
 clc; clear all
-data_matrix=xlsread('34_35.xlsx');
+data_matrix=xlsread('file1.xlsx');
 icol = size(data_matrix,2);
 
 data_predictor = data_matrix(:,1:icol-1); % predictors matrix
