@@ -1,9 +1,9 @@
 %https://www.mathworks.com/matlabcentral/fileexchange/22997-multiclass-gentleadaboosting
-[~, ~, ctg] = xlsread('34_35.xlsx');
-X = cell2mat(ctg(2:end, 4:end-1));
+[~, ~, ctg] = xlsread('34_35_1.xlsx');
+X = cell2mat(ctg(2:end, 1:end-1));
 y = cell2mat(ctg(2:end, end));
 
-options.method       = 7;
+options.method       = 4;
 options.holding.rho  = 0.7;
 options.holding.K    = 50;
 
