@@ -1,8 +1,8 @@
 %https://www.mathworks.com/help/deeplearning/ref/trainnetwork.html
 
 tic
-%clc; clear all
-data=xlsread('34_35.xlsx');
+clc; clear all
+data=xlsread('34_35_1.xlsx');
 
 %disp(length(data));
 data(:,1:end-1)=zscore(data(:,1:end-1));
