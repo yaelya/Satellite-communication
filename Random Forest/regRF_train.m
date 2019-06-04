@@ -90,13 +90,14 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
     %ntree (optional): number of trees (default is 500)
     %mtry (default is max(floor(D/3),1) D=number of features in X)
     DEBUG_ON=0;
-   
+
+
     DEFAULTS_ON=0;
-    
+
     TRUE=1;
     FALSE=0;
-    
-    
+
+
     if exist('extra_options','var')
         if isfield(extra_options,'DEBUG_ON');  DEBUG_ON = extra_options.DEBUG_ON;    end
         if isfield(extra_options,'replace');  replace = extra_options.replace;       end
@@ -115,8 +116,8 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
         if isfield(extra_options,'corr_bias');  corr_bias = extra_options.corr_bias;       end
         if isfield(extra_options,'keep_inbag');  keep_inbag = extra_options.keep_inbag;       end
     end
-    
-    
+
+
     %set defaults if not already set
     if ~exist('DEBUG_ON','var')     DEBUG_ON=FALSE; end
     if ~exist('replace','var');     replace = TRUE; end
@@ -140,8 +141,8 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
     if ~exist('do_trace','var');    do_trace = FALSE; end
     if ~exist('corr_bias','var');   corr_bias = FALSE; end
     if ~exist('keep_inbag','var');  keep_inbag = FALSE; end
-    
-    
+
+
     if ~exist('ntree','var') | ntree<=0
 		ntree=500;
         DEFAULTS_ON=1;
@@ -151,26 +152,26 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
         DEFAULTS_ON=1;
     end
     addclass=0;
-    
-    
+
+
     [N D] = size(X);
-    
+
     if length(unique(Y))<=5,  warning('Do you want regression? there are just 5 or less unique values');  end
     if N==0,   error('Data (X) has 0 rows');  end
     if mtry<1 || mtry>D  ,  warning('Invalid mtry. reset to within valid range'); DEFAULTS_ON=1;   end
     mtry = max(1, min(D,round(mtry)));
-    
+
     if DEFAULTS_ON
-        %fprintf('\tSetting to defaults %d trees and mtry=%d\n',ntree,mtry);
+        fprintf('\tSetting to defaults %d trees and mtry=%d\n',ntree,mtry);
     end
-    
+
     if length(Y)~=N || length(Y)==0
         error('length of Y not the same as X or Y is null');
     end
-    
+
     if ~isempty(find(isnan(X)));  error('NaNs in X');   end
     if ~isempty(find(isnan(Y)));  error('NaNs in Y');   end
-    
+
     %now handle categories. Problem is that categories in R are more
     %enhanced. In this i ask the user to specify the column/features to
     %consider as categories, 1 if all the values are real values else
@@ -180,7 +181,7 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
     else
         ncat = ones(1,D);
     end
-    
+
     maxcat = max(ncat);
     if maxcat>32
         error('Can not handle categorical predictors with more than 32 categories');
@@ -194,11 +195,11 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
         proximity = addclass;
         oob_prox = proximity;
     end
-    
+
     if ~exist('oob_prox','var')
         oob_prox = proximity;
     end
-    
+
     %i handle the below in the mex file
 %     if proximity
 %         prox = zeros(N,N);
@@ -207,7 +208,7 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
 %         prox = 1;
 %         proxts = 1;
 %     end
-    
+
     %i handle the below in the mex file
     if localImp
         importance = TRUE;
@@ -215,14 +216,14 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
     else
 %        impmat = 1;
     end
-    
+
     if importance
         if (nPerm<1)
             nPerm = int32(1);
         else
             nPerm = int32(nPerm);
         end
-        
+
         %regRF
 %        impout = zeros(D,2);
 %        impSD  = zeros(D,1);
@@ -230,7 +231,7 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
 %        impout = zeros(D,1);
 %        impSD =  1;
     end
-    
+
     %i handle the below in the mex file
     %somewhere near line 157 in randomForest.default.R
     if addclass
@@ -238,16 +239,16 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
     else
 %        nsample = n;
     end
-    
+
     Stratify = (length(sampsize)>1);
     if (~Stratify && sampsize>N) 
         error('Sampsize too large')
     end
-    
+
     if Stratify
         error('Sampsize should be of length one')
     end
-    
+
     %i handle the below in the mex file
     % nrnodes = 2*floor(sampsize/max(1,nodesize-4))+1;
     % xtest = 1;
@@ -255,9 +256,9 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
     % ntest = 1;
     % labelts = FALSE;
     % nt = ntree;
-    
+
     Options = int32([importance,localImp,nPerm]);
-    
+
     if DEBUG_ON
         %print the parameters that i am sending in
         fprintf('size(x) %d\n',size(X));
@@ -275,20 +276,20 @@ function model=regRF_train(X,Y,ntree,mtry, extra_options)
         fprintf('nodesize %f\n',nodesize);
         fprintf('replace %f\n',replace);
     end
-    
-    
-    
-    
+
+
+
+
 	[ldau,rdau,nodestatus,nrnodes,upper,avnode,...
-         dsmbest,ndtree,ypred,mse,impout,impmat,...
+        mbest,ndtree,ypred,mse,impout,impmat,...
         impSD,prox,coef,oob_times,inbag]...
         = mexRF_train (X',Y,ntree,mtry,sampsize,nodesize,...
                        int32(Options),int32(ncat),int32(maxcat),int32(do_trace), int32(proximity), int32(oob_prox), ...
                        int32(corr_bias), keep_inbag, replace    );
-    
+
     %done in R file so doing it too.
     ypred(oob_times==0)=NaN;
-	
+
     model.lDau=ldau;
 	model.rDau=rdau;
 	model.nodestatus=nodestatus;
