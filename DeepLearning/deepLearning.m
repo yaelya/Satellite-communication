@@ -1,7 +1,7 @@
 %https://www.mathworks.com/help/stats/classification-with-imbalanced-data.html
 tic
 %clc; clear all
-data=xlsread('34_35.xlsx');
+data=xlsread('NIRMUL_ABS.xlsx');
 Y = data(:,end);
 X = data(:,1:end-1);
 
@@ -9,7 +9,7 @@ X = data(:,1:end-1);
 %tabulate(Y);
 
 rng(10,'twister');         % For reproducibility
-part = cvpartition(Y,'Holdout',0.20);
+part = cvpartition(Y,'Holdout',20);
 istrain = training(part); % Data for fitting
 istest = test(part);      % Data for quality assessment
 %tabulate(Y(istrain));
