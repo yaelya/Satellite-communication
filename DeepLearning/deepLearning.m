@@ -1,7 +1,7 @@
 %https://www.mathworks.com/help/stats/classification-with-imbalanced-data.html
 tic
-%clc; clear all
-data=xlsread('NIRMUL.xlsx');
+clc; clear all
+data=xlsread('NIRMUL_ABS.xlsx');
 Y = data(:,end);
 X = data(:,1:end-1);
 
@@ -9,7 +9,7 @@ X = data(:,1:end-1);
 %tabulate(Y);
 
 rng(10,'twister');         % For reproducibility
-part = cvpartition(Y,'Holdout',0.20);
+part = cvpartition(Y,'holdout',0.2);
 istrain = training(part); % Data for fitting
 istest = test(part);      % Data for quality assessment
 %tabulate(Y(istrain));
@@ -17,7 +17,7 @@ istest = test(part);      % Data for quality assessment
 N = sum(istrain);         % Number of observations in the training sample
 t = templateTree('MaxNumSplits',N);
 rusTree = fitcensemble(data(istrain,1:11),Y(istrain),'Method','RUSBoost', ...
-    'NumLearningCycles',300,'Learners',t,'LearnRate',0.1,'nprint',301);
+    'NumLearningCycles',1000,'Learners',t,'LearnRate',0.1,'nprint',100);
 figure;
 plot(loss(rusTree,data(istest,1:11),Y(istest),'mode','cumulative'));
 grid on;
