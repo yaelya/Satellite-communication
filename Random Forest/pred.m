@@ -11,7 +11,7 @@ data_predictor = data_matrix(:,1:icol-1); % predictors matrix
 label = data_matrix(:,end); % last column is 2 for benign, 4 for malignant
 
 
-cvp=cvpartition(length(data_predictor),'holdout',0.8); 
+cvp=cvpartition(length(data_predictor),'holdout',0.2); 
 %Training set
 x=data_predictor(training(cvp),:);
 y=label(training(cvp),:);

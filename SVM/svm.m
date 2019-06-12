@@ -1,7 +1,6 @@
 %https://www.mathworks.com/matlabcentral/fileexchange/63158-support-vector-machine
 tic
 clc; clear all
-
 data=xlsread('NIRMUL_ABS.xlsx');
 
 %disp(length(data));
