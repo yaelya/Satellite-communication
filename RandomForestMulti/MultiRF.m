@@ -2,7 +2,7 @@
 tic
 
 clc; clear all
-data=xlsread('34_35.xlsx');
+data=xlsread('34_35_1.xlsx');
 AtmosLossdB=data(1:end,3);
 RainLossdB = data(1:end,4);
 CloudsFogLossdB = data(1:end,5);

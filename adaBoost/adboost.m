@@ -3,7 +3,8 @@
 
 tic
 clc; clear all
-[~, ~, ctg] = xlsread('34_35_1.xlsx');
+
+[~, ~, ctg] = xlsread('NIRMUL_ABS.xlsx');
 X = cell2mat(ctg(2:end, 1:end-1));
 y = cell2mat(ctg(2:end, end));
 colLabel = ctg(1, 1:end-1);
@@ -15,6 +16,8 @@ C = classifier.train(X, y, [], nTree);
 
 
 [accuracy, tpr] = C.calc_accuracy( X, y, nTree);
+
+
 hold on
 plot(tpr)
 plot(accuracy, 'LineWidth',2)
