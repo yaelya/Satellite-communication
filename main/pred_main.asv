@@ -1,9 +1,9 @@
-
-function [perftrain,perfage,perfage2,ley]=mkpred
+function data=pred_main(data)
+%function [perftrain,perfage,perfage2,ley]=mkpred
 
 tic
-clc; clear all
-data_matrix=xlsread('NIRMUL_ABS.xlsx');
+%clc; clear all
+data_matrix=data;
 icol = size(data_matrix,2)
 
 data_predictor = data_matrix(:,1:icol-1); % predictors matrix
@@ -48,9 +48,9 @@ end
 
 ley=round(ley/k);
 
-end    
+%end    
 
-function [lex,x,perfage,perfage2]=cleanage(lex,x)
+%function [lex,x,perfage,perfage2]=cleanage(lex,x)
 
 letarget_x=[lex(isnan(lex(:,4)),2:3) lex(isnan(lex(:,4)),5:8)];
 letarget_y=zeros(size(letarget_x,1),1);

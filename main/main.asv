@@ -41,6 +41,7 @@ for c= 1:11
     end         
 end
 
-DL_main(data);
-SVM_main(data);
+%DL_main(data);
+%SVM_main(data);
+adaboost_main(data);
 toc

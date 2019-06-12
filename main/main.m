@@ -29,18 +29,20 @@ end
 
 data2=xlsread('myExample.xlsx','MyData');
 for c= 1:11
-    if abs(data2(c,1))> abs(data2(c,2))
+    if abs(data2(c,1)) > abs(data2(c,2))
         maximum= abs(data2(c,1));
         for d= 1:size(data)
-            data(d,c)= abs(data(d,c))/ maximum;
+            data(d,c)= abs(abs(data(d,c))/ maximum);
         end
     end
     maximum= abs(data2(c,2));
     for d= 1:size(data)
-        data(d,c)= abs(data(d,c))/ maximum;
+        data(d,c)= abs(abs(data(d,c))/ maximum);
     end         
 end
 
 DL_main(data);
 SVM_main(data);
+%adaboost_main(data);
+%pred_main(data);
 toc

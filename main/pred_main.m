@@ -1,9 +1,9 @@
-
+function pred_main(data)
 function [perftrain,perfage,perfage2,ley]=mkpred
 
 tic
-clc; clear all
-data_matrix=xlsread('NIRMUL_ABS.xlsx');
+%clc; clear all
+data_matrix=data;
 icol = size(data_matrix,2)
 
 data_predictor = data_matrix(:,1:icol-1); % predictors matrix
