@@ -3,6 +3,8 @@ function [perftrain,perfage,perfage2,ley]=mkpred
 
 tic
 clc; clear all
+%data_matrix=xlsread('file1.xlsx');
+%icol = size(data_matrix,2);
 data_matrix=xlsread('NIRMUL_ABS.xlsx');
 icol = size(data_matrix,2)
 
