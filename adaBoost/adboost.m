@@ -4,7 +4,7 @@
 tic
 clc; clear all
 
-[~, ~, ctg] = xlsread('NIRMUL_ABS.xlsx');
+[~, ~, ctg] = xlsread('file1.xlsx');
 X = cell2mat(ctg(2:end, 1:end-1));
 y = cell2mat(ctg(2:end, end));
 colLabel = ctg(1, 1:end-1);

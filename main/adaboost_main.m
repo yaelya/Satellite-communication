@@ -1,10 +1,10 @@
 function adaboost_main(data)
 
 tic
-
 ctg = data;
-X = cell2mat(ctg(2:end, 1:end-1));
-y = cell2mat(ctg(2:end, end));
+
+X = (ctg(1:end, 1:end-1));
+y = (ctg(1:end, end));
 colLabel = ctg(1, 1:end-1);
 
 verbose = true;
