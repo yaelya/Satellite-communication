@@ -59,11 +59,7 @@ b(1,5)="SUM";
 
 for c= 1:size(y_DL)
     k=1
-    if y_DL(c)==0
-        b(c+1,k)=-1;
-    else
     b(c+1,k)=y_DL(c);
-    end
 end
 
 for c= 1:size(y_SVM)
@@ -85,19 +81,19 @@ xlswrite('resultes.xlsx',b,'MyData')
 
 data3=xlsread('resultes.xlsx','MyData');
 
-for c= 1:size(y_SVM)
+for c=1:size(y_SVM)
     k=1
     if data3(c,k)==data3(c,k+1)
-        b(c+1,5)=data3(c,k);
-    elseif data3(c,k)==data3(c,k+2)
-        b(c+1,5)=data3(c,k);
-    elseif data3(c,k)==data3(c,k+3)
-        b(c+1,5)=data3(c,k);
-    else
-        b(c+1,5)=data3(c,k+1);
+        b(c,5)=data3(c,k);
+    end
+    else if data3(c,k)==data3(c,k+2)
+        b(c,5)=data3(c,k);
+    end
+    else if data3(c,k)==data3(c,k+3)
+        b(c,5)=data3(c,k);
     end
 end
 
-xlswrite('resultes.xlsx',b,'MyData');
+
 
 toc

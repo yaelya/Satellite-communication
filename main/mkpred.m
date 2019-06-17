@@ -1,5 +1,5 @@
 %function pred_main(data)
-function [perftrain,perfage,perfage2,ley]=mkpred(data)
+function [perftrain,perfage,perfage2,ley,Y_trn]=mkpred(data)
 
 tic
 %clc; clear all

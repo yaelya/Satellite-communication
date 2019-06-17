@@ -1,4 +1,4 @@
-function DL_main(data)
+function [Yfit]=DL_main(data)
 %https://www.mathworks.com/help/stats/classification-with-imbalanced-data.html
 tic
 %clc; clear all

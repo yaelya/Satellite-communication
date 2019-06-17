@@ -1,4 +1,4 @@
-function SVM_main(data)
+function [Ys]=SVM_main(data)
 
 tic
 %clc; clear all
@@ -22,7 +22,7 @@ title('Data for classification');
 hold off;
 
 fm_=[];
-for c=[0.1]
+for c=[0.1,1,2,3]
      
      % alpha
      alpha = grad_ascent(X,Y,c);

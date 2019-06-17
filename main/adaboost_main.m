@@ -1,4 +1,4 @@
-function adaboost_main(data)
+function [Y]=adaboost_main(data)
 
 tic
 ctg = data;
