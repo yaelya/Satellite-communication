@@ -58,7 +58,7 @@ b(1,4)="RF";
 b(1,5)="SUM";
 
 for c= 1:size(y_DL)
-    k=1
+    k=1;
     if y_DL(c)==0
         b(c+1,k)=-1;
     else
@@ -67,18 +67,30 @@ for c= 1:size(y_DL)
 end
 
 for c= 1:size(y_SVM)
-    k=2
+    k=2;
+    if y_SVM(c)==0
+        b(c+1,k)=-1;
+    else
     b(c+1,k)=y_SVM(c);
+    end
 end
 
 for c= 1:size(y_A)
-    k=3
+    k=3;
+    if y_A(c)==0
+        b(c+1,k)=-1;
+    else
     b(c+1,k)=y_A(c);
+    end
 end
 
 for c= 1:size(y_RF)
-    k=4
+    k=4;
+    if y_RF(c)==0
+        b(c+1,k)=-1;
+    else
     b(c+1,k)=y_RF(c);
+    end
 end
 
 xlswrite('resultes.xlsx',b,'MyData')
@@ -86,7 +98,7 @@ xlswrite('resultes.xlsx',b,'MyData')
 data3=xlsread('resultes.xlsx','MyData');
 
 for c= 1:size(y_SVM)
-    k=1
+    k=1;
     if data3(c,k)==data3(c,k+1)
         b(c+1,5)=data3(c,k);
     elseif data3(c,k)==data3(c,k+2)

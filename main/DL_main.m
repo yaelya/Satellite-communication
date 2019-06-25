@@ -18,7 +18,7 @@ istest = test(part);      % Data for quality assessment
 N = sum(istrain);         % Number of observations in the training sample
 t = templateTree('MaxNumSplits',N);
 rusTree = fitcensemble(data(istrain,1:11),Y(istrain),'Method','RUSBoost', ...
-    'NumLearningCycles',1000,'Learners',t,'LearnRate',0.1,'nprint',100);
+    'NumLearningCycles',300,'Learners',t,'LearnRate',0.1,'nprint',100);
 figure;
 plot(loss(rusTree,data(istest,1:11),Y(istest),'mode','cumulative'));
 grid on;
