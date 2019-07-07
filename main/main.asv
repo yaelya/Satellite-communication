@@ -6,7 +6,6 @@ X = data(:,1:end-1);
 
 Z=data(randi([11,420],1,10))
 
-
 for c= 1:size(Z)
     if Z(c)<0 || Z(c)>1
         flag=0
@@ -35,14 +34,14 @@ for c= 1:11
             data(d,c)= abs(data(d,c))/ maximum;
         end
     end
-    maximum= abs(data2(c,2));
+    maximum= abs(data3(c,2));
     for d= 1:size(data)
         data(d,c)= abs(data(d,c))/ maximum;
     end         
 end
 
-file=xlsread('file1.xlsx');
-file2=xlsread('file2.xlsx');
+file=xlsread('filet1.xlsx');
+file2=xlsread('filet.xlsx');
 
 
 [y_DL]=DL_main(file2);
@@ -58,42 +57,58 @@ b(1,4)="RF";
 b(1,5)="SUM";
 
 for c= 1:size(y_DL)
-    k=1
+    k=1;
+    if y_DL(c)==0
+        b(c+1,k)=-1;
+    else
     b(c+1,k)=y_DL(c);
+    end
 end
 
 for c= 1:size(y_SVM)
-    k=2
+    k=2;
+    if y_SVM(c)==0
+        b(c+1,k)=-1;
+    else
     b(c+1,k)=y_SVM(c);
+    end
 end
 
 for c= 1:size(y_A)
-    k=3
+    k=3;
+    if y_A(c)==0
+        b(c+1,k)=-1;
+    else
     b(c+1,k)=y_A(c);
+    end
 end
 
 for c= 1:size(y_RF)
-    k=4
+    k=4;
+    if y_RF(c)==0
+        b(c+1,k)=-1;
+    else
     b(c+1,k)=y_RF(c);
+    end
 end
 
 xlswrite('resultes.xlsx',b,'MyData')
 
 data3=xlsread('resultes.xlsx','MyData');
 
-for c=1:size(y_SVM)
-    k=1
+for c= 1:size(y_SVM)
+    k=1;
     if data3(c,k)==data3(c,k+1)
-        b(c,5)=data3(c,k);
-    end
-    else if data3(c,k)==data3(c,k+2)
-        b(c,5)=data3(c,k);
-    end
-    else if data3(c,k)==data3(c,k+3)
-        b(c,5)=data3(c,k);
+        b(c+1,5)=data3(c,k);
+    elseif data3(c,k)==data3(c,k+2)
+        b(c+1,5)=data3(c,k);
+    elseif data3(c,k)==data3(c,k+3)
+        b(c+1,5)=data3(c,k);
+    else
+        b(c+1,5)=data3(c,k+1);
     end
 end
 
-
+xlswrite('resultes.xlsx',b,'MyData');
 
 toc

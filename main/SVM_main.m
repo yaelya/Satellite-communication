@@ -4,6 +4,7 @@ tic
 %clc; clear all
 %data=xlsread('NIRMUL_ABS.xlsx');
 
+
 %disp(length(data));
 data(:,1:end-1)=zscore(data(:,1:end-1));
 [train,test] = holdout(data,80);
@@ -22,7 +23,7 @@ title('Data for classification');
 hold off;
 
 fm_=[];
-for c=[0.1,1,2,3]
+for c=[0.1]
      
      % alpha
      alpha = grad_ascent(X,Y,c);

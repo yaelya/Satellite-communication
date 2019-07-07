@@ -7,9 +7,10 @@ X = (ctg(1:end, 1:end-1));
 y = (ctg(1:end, end));
 colLabel = ctg(1, 1:end-1);
 
+
 verbose = true;
 classifier = AdaBoost_mult(decision_stump, verbose); % blank classifier
-nTree = 15;
+nTree = 12;
 C = classifier.train(X, y, [], nTree);
 
 

@@ -1,6 +1,6 @@
 tic
 clc; clear all
-data=xlsread('34_35_1.xlsx');
+data=xlsread('filet (1).xlsx');
 Y = data(:,end);
 X = data(:,1:end-1);
 
@@ -41,14 +41,13 @@ for c= 1:11
     end         
 end
 
-file=xlsread('file1.xlsx');
-file2=xlsread('file2.xlsx');
+file=xlsread('filet.xlsx');
 
 
-[y_DL]=DL_main(file2);
-[y_SVM]=SVM_main(file);
-[y_A]=adaboost_main(file);
-[perftrain,perfage,perfage2,ley,y_RF]=mkpred(file);
+[y_DL]=DL_main(file);
+[y_SVM]=SVM_main(data);
+[y_A]=adaboost_main(data);
+[perftrain,perfage,perfage2,ley,y_RF]=mkpred(data);
 %pred_main(file);
 
 b(1,1)="DL";
@@ -57,7 +56,9 @@ b(1,3)="Adaboost";
 b(1,4)="RF";
 b(1,5)="SUM";
 
-for c= 1:size(y_DL)
+size=size(y_SVM);
+
+for c= 1:size
     k=1;
     if y_DL(c)==0
         b(c+1,k)=-1;
@@ -66,7 +67,7 @@ for c= 1:size(y_DL)
     end
 end
 
-for c= 1:size(y_SVM)
+for c= 1:size
     k=2;
     if y_SVM(c)==0
         b(c+1,k)=-1;
@@ -75,7 +76,7 @@ for c= 1:size(y_SVM)
     end
 end
 
-for c= 1:size(y_A)
+for c= 1:size
     k=3;
     if y_A(c)==0
         b(c+1,k)=-1;
@@ -84,7 +85,7 @@ for c= 1:size(y_A)
     end
 end
 
-for c= 1:size(y_RF)
+for c= 1:size
     k=4;
     if y_RF(c)==0
         b(c+1,k)=-1;
@@ -97,7 +98,7 @@ xlswrite('resultes.xlsx',b,'MyData')
 
 data3=xlsread('resultes.xlsx','MyData');
 
-for c= 1:size(y_SVM)
+for c= 1:size
     k=1;
     if data3(c,k)==data3(c,k+1)
         b(c+1,5)=data3(c,k);
